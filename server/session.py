@@ -48,7 +48,7 @@ def lookup():
     if aging == 1:
         _update_expiration(db, sessionID)
 
-    return (aging, gmailName)
+    return (sessionID, gmailName)
 
 
 
