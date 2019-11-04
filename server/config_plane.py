@@ -1,8 +1,6 @@
 
-import json
-import MySQLdb
-
-import passwords
+# the app is defined inside the core application file.
+from ericonium import app,get_db
 
 
 
@@ -21,7 +19,7 @@ def get_db():
 
 
 
-@app.route("/")
+@app.route("/config")
 def index():
     return render_template("index.html")
 

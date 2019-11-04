@@ -7,7 +7,7 @@ import passwords
 
 
 from flask import Flask, request, render_template, url_for, redirect, make_response, jsonify
-app = Flask(__name__, template_folder="templates-control_plane")
+app = Flask(__name__)
 
 
 
@@ -18,6 +18,21 @@ def get_db():
                                           passwd = passwords.SQL_PASSWD,
                                           db     = "ericonium")
     return request.db_conn
+
+
+
+# these are subcomponents of the Ericonium application
+import oauth
+import config_plane
+
+
+
+# this forces all traffic to HTTPS
+@app.before_request
+def force_ssl():
+    if request.url.startswith("http://"):
+        dest = request.url.replace("http://", "https://", 1)
+        return redirect(dest, code=301)   # 301: Moved Permanently
 
 
 

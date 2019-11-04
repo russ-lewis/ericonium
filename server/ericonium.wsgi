@@ -10,5 +10,5 @@ sys.path.insert(0, APP_DIR)
 os.chdir(APP_DIR)
 
 
-from ericonium_control_plane import app as application
+from ericonium import app as application
 
