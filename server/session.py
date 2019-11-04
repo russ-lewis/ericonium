@@ -11,6 +11,7 @@ from ericonium import app,get_db
 
 
 SESSION_TIMEOUT = "00:30:00"    # 30 minutes
+AGING_TIMEOUT   = "00:15:00"    # 15 minutes
 COOKIE_MAX_AGE  = 1800          # 30 minutes, as well
 
 
@@ -28,7 +29,12 @@ def lookup():
     sessionID = request.cookies["sessionID"]
 
     cursor = db.cursor()
-    cursor.execute("SELECT gmailName FROM sessions WHERE id=%s AND NOW()<expiration;", (sessionID,))
+    cursor.execute("""SELECT gmailName,
+                             CASE WHEN ADDTIME(NOW(),%s)>expiration THEN 1
+                                  ELSE                                   0
+                                  END AS is_aging
+                        FROM sessions
+                       WHERE id=%s AND NOW()<expiration;""", (AGING_TIMEOUT, sessionID))
     rows = cursor.fetchall()
     cursor.close()
 
@@ -36,8 +42,13 @@ def lookup():
     if len(rows) == 0:
         return _create(db)
 
-    gmailName = rows[0][0]
-    return (sessionID, gmailName)
+    gmailName =     rows[0][0]
+    aging     = int(rows[0][1])
+
+    if aging == 1:
+        _update_expiration(db, sessionID)
+
+    return (aging, gmailName)
 
 
 
@@ -47,7 +58,7 @@ def _create(db):
     sessionID = ("%032x" % random.getrandbits(128))
 
     cursor = db.cursor()
-    cursor.execute("INSERT INTO sessions(id,expiration) VALUES(%s,ADDTIME(NOW(),%s));", (sessionID,SESSION_TIMEOUT));
+    cursor.execute("INSERT INTO sessions(id,expiration) VALUES(%s,ADDTIME(NOW(),%s));", (sessionID, SESSION_TIMEOUT));
     rowcount = cursor.rowcount
     cursor.close()
     db.commit()        # TODO: should I defer this until some common code, later?
@@ -62,6 +73,18 @@ def _create(db):
 
     # normal pass - a new session was created
     return (sessionID, None)
+
+
+
+def _update_expiration(db, sessionID):
+    cursor = db.cursor()
+    cursor.execute("UPDATE sessions SET expiration=ADDTIME(NOW(),%s) WHERE id=%s;", (SESSION_TIMEOUT, sessionID))
+    cursor.close()   # we don't confirm that this works.  We just hope.
+
+    db.commit()        # TODO: should I defer this until some common code, later?
+
+    # record that we need to (re)set the cookie, when this request terminates.
+    request.session_set_sessionID = sessionID
 
 
 
