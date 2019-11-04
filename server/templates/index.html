@@ -1,6 +1,13 @@
-<html><body>
+<html>
+  <head><title>Ericonium, Version 0</title></head>
+
+<body>
 
 This is the Ericonium game main page.
+
+{% if sessionID is defined %}
+<p>Session ID = {{sessionID}}
+{% endif %}
 
 </body></html>
 

@@ -21,7 +21,10 @@ def get_db():
 
 
 
-# these are subcomponents of the Ericonium application
+# local utility modules
+import session            # creates, tracks sessions
+
+# subcomponents of the Ericonium application
 import oauth
 import config_plane
 
@@ -38,6 +41,8 @@ def force_ssl():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    (sessionID, gmailName) = session.lookup()
+
+    return render_template("index.html", sessionID=sessionID)
 
 
