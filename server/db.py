@@ -1,11 +1,8 @@
 
-# the app is defined inside the core application file.
-from ericonium import app,get_db
+import MySQLdb
+import passwords    # my private password file
 
-
-
-from flask import Flask, request, render_template, url_for, redirect, make_response, jsonify
-app = Flask(__name__)
+from flask import request
 
 
 
@@ -19,8 +16,8 @@ def get_db():
 
 
 
-@app.route("/config")
-def index():
-    return render_template("index.html")
+# TODO: add an @app.after_request() call, which will commit if necessary.
+#       drive it with a queue_commit() call in this function, which sets a
+#       flag in the request object (see the after_request() in session.py)
 
 

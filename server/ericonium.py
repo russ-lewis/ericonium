@@ -1,32 +1,12 @@
 
-import json
-import MySQLdb
-
-import passwords
-
-
-
 from flask import Flask, request, render_template, url_for, redirect, make_response, jsonify
 app = Flask(__name__)
 
-
-
-def get_db():
-    if "db_conn" not in dir(request):
-        request.db_conn = MySQLdb.connect(host   = passwords.SQL_HOST,
-                                          user   = passwords.SQL_USER,
-                                          passwd = passwords.SQL_PASSWD,
-                                          db     = "ericonium")
-    return request.db_conn
-
-
-
-# local utility modules
-import session            # creates, tracks sessions
-
-# subcomponents of the Ericonium application
+import session
+app.register_blueprint(session.session_blueprint)
 import oauth
-import config_plane
+app.register_blueprint(  oauth.  oauth_blueprint)
+
 
 
 

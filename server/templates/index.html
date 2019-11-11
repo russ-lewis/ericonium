@@ -8,6 +8,10 @@
     {% if sessionID is defined %}
     <p style="color:red;font-style:italic;">Session ID = {{sessionID}}
     {% endif %}
+
+    {% if userID is not defined %}
+    <p><a href="{{url_for("oauth.login")}}">Log in with Google</a>
+    {% endif %}
     
     <h1>Ericonium</h1>
     <a href="gameVersionList.html"><p>Version List</p></a>
