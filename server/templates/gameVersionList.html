@@ -4,6 +4,10 @@
     <title>Ericonium - Version List</title>
   </head>
   <body>
+    {% if sessionID is defined %}
+    <p style="color:red;font-style:italic;">Session ID = {{sessionID}}
+    {% endif %}
+    
     <a href="index.html"><p>Home</p></a>
     <h1>Version List</h1>
     <a href="gameVersion0.html"><p>Version 0</p></a>
