@@ -4,8 +4,8 @@
     <title>Ericonium - Version 0</title>
     <style>
       table {
-        width: 90vmin;
-        height: 90vmin;
+        width: 50vmin;
+        height: 50vmin;
         border: 1px solid black;
       }
       th, td {
@@ -16,14 +16,25 @@
     </style>
   </head>
   <body>
-    {% if sessionID is defined %}
-    <p style="color:red;font-style:italic;">Session ID = {{sessionID}}
-    {% endif %}
+    <!--
+{% if sessionID is defined %}
+<p style="color:red;font-style:italic;">Session ID = {{sessionID}}
+{% endif %}
+-->
 
     <a href="index.html"><p>Home</p></a>
     <h1>Version 0</h1>
 
-    <table>
+    <div style="border:1px solid black;float:right;width:75vmin;height:50vmin;">
+      <p style="font-weight:bold;">
+        Coodinates of the tile
+      </p>
+      <p>
+        This is where the current tile info goes.
+      </p>
+    </div>
+    
+    <table style="float:left;">
       <tr>
         <td></td>
         <td></td>
