@@ -140,14 +140,14 @@ def set_session_value(sessionID, fieldName, value):
 
     cursor = db.cursor()
     cursor.execute("UPDATE sessions SET "+fieldName+"=%s WHERE id=%s", (value, sessionID))
-    rowcount = cursor.rowcount()
+    rowcount = cursor.rowcount
     cursor.close()
 
     db.commit()    # TODO: should I defer this until later???
 
 
 
-@session_blueprint.after_request
+@session_blueprint.after_app_request
 def cookie_check(resp):
     if "session_set_sessionID" in dir(request):
         resp.set_cookie("sessionID", request.session_set_sessionID,

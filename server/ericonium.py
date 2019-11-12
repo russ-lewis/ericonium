@@ -21,8 +21,11 @@ def force_ssl():
 
 @app.route("/")
 def index():
-    (sessionID, gmailName) = session.lookup()
+    (sessionID, values) = session.lookup()
 
-    return render_template("index.html", sessionID=sessionID)
+    assert len(values) == 1
+    gmailName = values[0]
+
+    return render_template("index.html", sessionID=sessionID, userID=gmailName)
 
 

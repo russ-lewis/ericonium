@@ -1,8 +1,10 @@
 
 import random
 import urllib
+import requests
+import json
 
-from flask import Blueprint, request, url_for
+from flask import Blueprint, request, url_for, redirect, render_template
 oauth_blueprint = Blueprint("oauth", __name__)
 
 import session
@@ -13,6 +15,8 @@ import passwords    # for the OAUTH secrets and such
 
 
 SESSION_TIMEOUT = "00:30:00"    # 30 minutes
+
+OAUTH_CALLBACK_URL = "https://ec2-52-89-101-165.us-west-2.compute.amazonaws.com/ericonium/oauth/callback"
 
 
 
@@ -71,8 +75,8 @@ def login():
     url = "%s?%s" % (
                 oauth_url,
                 urllib.urlencode({"client_id"    : client_id,
-                                        "redirect_url" : url_for("oauth.callback"),
-                                        "redirect_uri" : url_for("oauth.callback"),
+                                        "redirect_url" : OAUTH_CALLBACK_URL,
+                                        "redirect_uri" : OAUTH_CALLBACK_URL,
                                         "response_type": "code",
                                         "scope"        : scope,
                                         "access_type"  : "online",
@@ -81,12 +85,12 @@ def login():
 
     # print("login(): redirect url=%s" % url)
 
-    return url
-    #return redirect(url, code=302)
+    #return url
+    return redirect(url, code=302)
 
 
 
-@oauth_blueprint.route("/oauth/callback/")
+@oauth_blueprint.route("/oauth/callback")
 def callback():
     # TODO: handle the 'error' variable
 
@@ -137,8 +141,8 @@ def callback():
     post_form_variables = {"client_id"     : client_id,
                            "client_secret" : client_secret,
                            "code"          : code,
-                           "redirect_url"  : url_for("/oauth/callback"),
-                           "redirect_uri"  : url_for("/oauth/callback"),
+                           "redirect_url"  : OAUTH_CALLBACK_URL,
+                           "redirect_uri"  : OAUTH_CALLBACK_URL,
                            "state"         : state,
                            "grant_type"    : "authorization_code",}
 
@@ -181,7 +185,7 @@ def callback():
 
 
     # record the gmailName; associate it with this sesssion.
-    session.set_value_field("gmailName", service_id)
+    session.set_session_value(sessionID, "gmailName", service_id)
 
 
     # now that we're done, redirect back to the main page.
