@@ -17,15 +17,15 @@
   </head>
   <body>
     {% if userID is not None %}
-    <p style="float:left";><a href="ericonium/server/templates/profile.html">{{userID}}</a></p>
+    <p style="float:right";><a href="ericonium/server/templates/profile.html">{{userID}}</a></p>
     {% else %}
-    <p style="float:left";><a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
+    <p style="float:right";><a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
     {% endif %}
 
     <a href="index.html"><p>Home</p></a>
     <h1>Version 0</h1>
 
-    <div style="border:1px solid black;float:right;width:45%;height:50vmin;">
+    <div style="border:1px solid black;float:right;width:45%;height:50vmin;padding:2px;">
       <p style="font-weight:bold;">
         Coodinates of the tile
       </p>
@@ -33,7 +33,7 @@
         This is where the current tile info goes.
       </p>
     </div>
-    
+
     <table>
       <tr>
         <td></td>
