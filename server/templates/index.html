@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ericonium - Version 0</title>
+    <title>Ericonium - Version List</title>
   </head>
   
   <body>
-    {% if sessionID is defined %}
-    <p style="color:red;font-style:italic;">Session ID = {{sessionID}}</p>
-    {% endif %}
-
     {% if userID is not None %}
-    <p style="float:left">You are logged in, using the Google account '{{userID}}'</p>
+    <p style="float:left";color:green;>{{userID}}</p>
     {% else %}
-    <p style="float:left"><a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
+    <p style="float:left";><a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
     {% endif %}
     
     <h1>Ericonium</h1>
