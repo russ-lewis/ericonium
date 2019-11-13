@@ -6,16 +6,16 @@
   
   <body>
     {% if sessionID is defined %}
-    <p style="color:red;font-style:italic;">Session ID = {{sessionID}}
+    <p style="color:red;font-style:italic;">Session ID = {{sessionID}}</p>
     {% endif %}
 
-    {% if userID is defined %}
-    <p>You are logged in, using the Google account '{{userID}}'
+    {% if userID is not None %}
+    <p style="float:left">You are logged in, using the Google account '{{userID}}'</p>
     {% else %}
-    <p><a href="{{url_for("oauth.login")}}">Log in with Google</a>
+    <p style="float:left"><a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
     {% endif %}
     
     <h1>Ericonium</h1>
-    <a href="gameVersionList.html"><p>Version List</p></a>
+    <p><a href="gameVersionList.html">Version List</a></p>
   </body>
 </html>
