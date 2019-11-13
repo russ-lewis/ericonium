@@ -25,7 +25,7 @@
     <a href="index.html"><p>Home</p></a>
     <h1>Version 0</h1>
 
-    <div style="border:1px solid black;float:right;width:75vmin;height:50vmin;">
+    <div style="border:1px solid black;float:right;width:45%;height:50vmin;">
       <p style="font-weight:bold;">
         Coodinates of the tile
       </p>
