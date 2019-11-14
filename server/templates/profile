@@ -16,14 +16,9 @@
     </style>
   </head>
   <body>
-    {% if userID is not None %}
-    <p style="float:left";><a href="ericonium/server/templates/profile.html">{{userID}}</a></p>
-    {% else %}
-    <p style="float:left";><a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
-    {% endif %}
-
-    <a href="index.html"><p>Home</p></a>
+    <p style="float:right;"><a href="index.html">Home</a></p>
     <h1>Profile</h1>
+    <p>{{userID}}</p>
     
     <table>
       <tr>
