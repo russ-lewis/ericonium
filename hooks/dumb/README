@@ -1,0 +1,4 @@
+This directory is for trivial hooks, which just run simple commands.  Some of
+these might, for instance, be Bash scripts - so making them part of the Flask
+interface is overkill.
+

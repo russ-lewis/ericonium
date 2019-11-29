@@ -1,0 +1,16 @@
+#! /bin/bash
+
+
+echo "Status: 200 OK"
+echo "Content-Type: text/plain"
+echo
+
+pwd
+whoami
+
+echo Hello
+
+ls -al 2>&1
+
+echo Goodbye
+
