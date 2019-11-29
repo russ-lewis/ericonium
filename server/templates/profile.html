@@ -16,6 +16,8 @@
     </style>
   </head>
   <body>
+    {% if userID is not none %}
+    
     <p style="float:right;">{{userID}}</p>
     <p><a href="index.html">Home</a></p>
     <h1>Profile</h1>
@@ -53,5 +55,9 @@
         </td>
       </tr>
     </table>
+    
+    {% else %}
+    
+    <p>You are not logged in. <a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
   </body>
 </html>
