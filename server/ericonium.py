@@ -29,3 +29,13 @@ def index():
     return render_template("index.html", sessionID=sessionID, userID=gmailName)
 
 
+@app.route("/game")
+def game():
+    (sessionID, values) = session.lookup()
+
+    assert len(values) == 1
+    gmailName = values[0]
+
+    return render_template("game.html", sessionID=sessionID, userID=gmailName)
+
+
