@@ -2,7 +2,7 @@ import sys
 import os
 
 
-APP_DIR = "/home/ec2-user/ericonium/server/"
+APP_DIR = os.path.dirname(__file__)
 
 # why doesn't WSGI set this up automatically?  I find the next two steps
 # fairly annoying!
