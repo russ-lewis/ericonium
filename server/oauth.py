@@ -53,7 +53,7 @@ def login():
     # print("login(): update count=%s" % count)
 
     if count != 1:
-        return render_template("error.html", message="Internal error, could not create a new login process.")
+        return render_template("oauth/error.html", message="Internal error, could not create a new login process.")
 
 
     # compose the redirect to the service.  Most of the variables are
@@ -95,7 +95,7 @@ def callback():
     # TODO: handle the 'error' variable
 
     if "code" not in request.values or "state" not in request.values:
-        return render_template("error.html", message="The OAuth callback has invalid HTTP parameters")
+        return render_template("oauth/error.html", message="The OAuth callback has invalid HTTP parameters")
     code  = request.values["code"]
     state = request.values["state"]
 
@@ -126,9 +126,9 @@ def callback():
     # print("oauth_callback(): len(tmp1)=%d len(tmp2)=%d" % (len(tmp1), len(tmp2)))
 
     if len(tmp1) == 0:
-        return render_template("error.html", message="Invalid 'state' variable in the OAuth callback.")
+        return render_template("oauth/error.html", message="Invalid 'state' variable in the OAuth callback.")
     if len(tmp2) == 0:
-        return render_template("error.html", message="The login process has expired.")
+        return render_template("oauth/error.html", message="The login process has expired.")
 
 
     # exchange the code for the real token.
@@ -155,27 +155,27 @@ def callback():
     token = None
 
 #    if service != "netID":
-#        return render_template("debug.html", more=("%s\n\n%s\n\n%s" % (token_url,post_form_variables,resp.text)))
+#        return render_template("oauth/debug.html", more=("%s\n\n%s\n\n%s" % (token_url,post_form_variables,resp.text)))
 
 
     # parse the output returned by the POST operation
 
     if resp.status_code != 200:
-        return render_template("error.html", message="The HTTP status code from the code->token POST operation was not was expected.  Expected: 200  Actual: %d" % resp.status_code)
+        return render_template("oauth/error.html", message="The HTTP status code from the code->token POST operation was not was expected.  Expected: 200  Actual: %d" % resp.status_code)
 
     if resp.headers["content-type"].split(';')[0] != "application/json":
-        return render_template("error.html", message="The reponse from the code->token POST operation was not was expected.  Expected: application/json  Actual: %s" % resp.headers["content-type"])
+        return render_template("oauth/error.html", message="The reponse from the code->token POST operation was not was expected.  Expected: application/json  Actual: %s" % resp.headers["content-type"])
 
     reply = json.loads(resp.text)
     if "access_token" not in reply:
-        return render_template("error.html", message="The reponse from the code->token POST operation was not was expected.  No 'access_token' field was found.")
+        return render_template("oauth/error.html", message="The reponse from the code->token POST operation was not was expected.  No 'access_token' field was found.")
 
     token = reply["access_token"]
 
     # print("oauth_callback(): token=%s" % token)
 
     if token is None:
-        return render_template("error.html", message="Access_token not provided in the OAuth callback.")
+        return render_template("oauth/error.html", message="Access_token not provided in the OAuth callback.")
 
 
     # now, use the access_token to go get the user ID for this user.
