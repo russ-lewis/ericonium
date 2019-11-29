@@ -6,13 +6,13 @@
   
   <body>
     {% if userID is not none %}
-    <p style="float:right;"><a href="ericonium/server/templates/profile.html">{{userID}}</a></p>
+    <p style="float:right;"><a href="profile.html">{{userID}}</a></p>
     {% else %}
     <p style="float:right";><a href="{{url_for("oauth.login")}}">Log in with Google</a></p>
     {% endif %}
     
     <h1>Ericonium</h1>
-    <p><a href="ericonium/server/templates/game.html">Play</a></p>
-    <p><a href="ericonium/versions/index.html">Version List</a></p>
+    <p><a href="game.html">Play</a></p>
+    <p><a href="versions.html">Version List</a></p>
   </body>
 </html>
