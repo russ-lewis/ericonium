@@ -39,3 +39,11 @@ def game():
     return render_template("game.html", sessionID=sessionID, userID=gmailName)
 
 
+@app.route("/profile")
+def profile():
+    (sessionID, values) = session.lookup()
+
+    assert len(values) == 1
+    gmailName = values[0]
+
+    return render_template("profile.html", sessionID=sessionID, userID=gmailName)
