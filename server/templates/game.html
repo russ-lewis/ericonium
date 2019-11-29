@@ -4,14 +4,23 @@
     <title>Ericonium</title>
     <style>
       table {
-        width: 50vmin;
+        width: 50%;
+        max-width: 50%;
         height: 50vmin;
+        max-height: 50vmin;
         border: 1px solid black;
       }
       th, td {
-        max-width: 9vmin;
-        max-height: 9vmin;
         border: 1px solid gray;
+      }
+      .sidepanel {
+        border: 1px solid black;
+        float: right;
+        width: 50%;
+        max-width: 50%;
+        height: 50vmin;
+        max-height: 50vmin;
+        padding: 2px;
       }
     </style>
   </head>
@@ -25,13 +34,9 @@
     <a href="{{url_for("index")}}"><p>Home</p></a>
     <h1>Version 0</h1>
 
-    <div style="border:1px solid black;float:right;width:45%;height:50vmin;padding:2px;">
-      <p style="font-weight:bold;">
-        Coodinates of the tile
-      </p>
-      <p>
-        This is where the current tile info goes.
-      </p>
+    <div class="sidepanel">
+      <p style="font-weight:bold;">Coodinates of the tile</p>
+      <p>This is where the current tile info goes.</p>
     </div>
 
     <table>
