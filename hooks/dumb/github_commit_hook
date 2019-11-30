@@ -5,12 +5,17 @@ echo "Status: 200 OK"
 echo "Content-Type: text/plain"
 echo
 
-pwd
-whoami
+echo Pulling from git...
+git pull
+echo
 
-echo Hello
+echo "Kicking off the server restart (will happen in +1 second)"
+# DO NOT RESTART THIS YOURSELF!!!
+#   If you do, then you'll kill the webserver which is serving this page!
+#
+# Instead, we use the "at" command to run it in a disconnected shell, later.
+echo "sleep 1; sudo /bin/systemctl restart httpd" | at now 2>&1
+echo
 
-ls -al 2>&1
-
-echo Goodbye
+echo "Done!"
 
